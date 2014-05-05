@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -84,5 +86,26 @@ public class QueryManager {
 		LOG.trace("Exiting findAll method with: " + queries);
 
 		return queries;
+	}
+	
+	@DELETE
+	@Path("/{id}")
+	public void deleteQuery(@PathParam("id") String id) {
+		LOG.trace("Inside delete method, ID = " + id);
+		long queryId = 0L;
+		try {
+			queryId = Long.parseLong(id);
+		} catch (Exception e) {
+			throw new RuntimeException("Error when parsing query ID provided.", e);
+		}
+		
+		boolean isDeleted = dao.delete(queryId);
+		
+		if(!isDeleted) {
+			throw new RuntimeException("There was a problem when deleting the query. "
+					+ "Please check GAE server log.");
+		}
+		
+		LOG.trace("Exiting delete method");
 	}
 }
