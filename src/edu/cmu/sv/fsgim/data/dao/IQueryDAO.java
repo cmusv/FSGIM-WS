@@ -12,4 +12,6 @@ public interface IQueryDAO {
 	List<QueryPO> findAll();
 	
 	List<QueryPO> find(QueryPO po);
+	
+	boolean delete(long id);
 }

@@ -47,12 +47,15 @@ public class QueryDAOImpl implements IQueryDAO {
 
 	@Override
 	public QueryPO findById(long id) {
+		return findById(id, getEntityManager());
+	}
+	
+	public QueryPO findById(long id, EntityManager em) {
 		LOG.trace(id);
-
-		final String findByIdQuery = "select po from QueryPO po where id = ?";
-
-		Query q = getEntityManager().createQuery(findByIdQuery);
-		q.setParameter(1, id);
+		
+		final String findByIdQuery = "select po from QueryPO po where id = :id";
+		Query q = em.createQuery(findByIdQuery);
+		q.setParameter("id", id);
 		List<QueryPO> pos = executeQuery(q);
 
 		QueryPO po = null;
@@ -72,8 +75,9 @@ public class QueryDAOImpl implements IQueryDAO {
 
 	@Override
 	public List<QueryPO> find(QueryPO po) {
-		if(po == null) return new ArrayList<QueryPO>();
-		
+		if (po == null)
+			return new ArrayList<QueryPO>();
+
 		final String findByNameQuery = "select po from QueryPO po "
 				+ "where modelName = :modelName "
 				+ "and modelVersion = :modelVersion "
@@ -86,6 +90,29 @@ public class QueryDAOImpl implements IQueryDAO {
 		q.setParameter("queryName", po.getQueryName());
 
 		return executeQuery(q);
+	}
+
+	@Override
+	public boolean delete(long id) {
+		boolean deleted = false;
+		EntityManager em = getEntityManager();
+		try {
+			QueryPO po = findById(id, em);
+			// This is just a fail safe check.
+			// Ideally this is not NULL at all times.
+			if (po != null) {
+				em.getTransaction().begin();
+				em.remove(po);
+				em.getTransaction().commit();
+			}
+			deleted = true;
+		} finally {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+		}
+
+		return deleted;
 	}
 
 	protected List<QueryPO> executeQuery(String queryStr) {
