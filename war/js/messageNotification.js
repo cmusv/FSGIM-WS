@@ -14,4 +14,6 @@ function showNotification(message) {
 	$("#messg").empty();
 	$("#messg").append(message);
 	$("#msgDiv").fadeIn("slow");
+	
+	setTimeout(function() { closeNotification(); } , 3000);
 }
