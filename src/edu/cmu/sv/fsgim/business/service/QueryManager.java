@@ -22,11 +22,25 @@ import edu.cmu.sv.fsgim.data.dao.IQueryDAO;
 import edu.cmu.sv.fsgim.data.dao.QueryDAOImpl;
 import edu.cmu.sv.fsgim.data.po.QueryPO;
 
+/**
+ * RESTful service interface to save and retrieve custom queries
+ * created by users.
+ * 
+ * @author surya
+ *
+ */
 @Path("/queries")
 public class QueryManager {
 	private static final Logger LOG = Logger.getLogger(QueryManager.class);
 	private IQueryDAO dao = new QueryDAOImpl();
 
+	/**
+	 * RESTful interface method to add a query to the system
+	 * 
+	 * @param query - Query object to be saved.
+	 * 
+	 * @return - Saved Query Object.
+	 */
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -70,6 +84,11 @@ public class QueryManager {
 		return query;
 	}
 
+	/**
+	 * RESTful API interface to load all saved custom queries.
+	 * 
+	 * @return - A list of custom queries - List<Query>
+	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@XmlElementWrapper(name = "queries")
@@ -88,6 +107,11 @@ public class QueryManager {
 		return queries;
 	}
 	
+	/**
+	 * RESTful API to delete a query based on ID.
+	 * 
+	 * @param id - ID value which is unique to the query to be deleted.
+	 */
 	@DELETE
 	@Path("/{id}")
 	public void deleteQuery(@PathParam("id") String id) {
@@ -101,6 +125,8 @@ public class QueryManager {
 		
 		boolean isDeleted = dao.delete(queryId);
 		
+		// If there is something wrong, and the query did not get deleted,
+		// raise an exception and report it.
 		if(!isDeleted) {
 			throw new RuntimeException("There was a problem when deleting the query. "
 					+ "Please check GAE server log.");
