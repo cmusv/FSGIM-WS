@@ -2,16 +2,9 @@ package edu.cmu.sv.fsgim.data.dao;
 
 import java.util.List;
 
+import edu.cmu.sv.fsgim.data.po.BasePO;
 import edu.cmu.sv.fsgim.data.po.QueryPO;
 
-public interface IQueryDAO {
-	QueryPO save(QueryPO po);
-
-	QueryPO findById(long id);
-
-	List<QueryPO> findAll();
-	
+public interface IQueryDAO<PO extends BasePO> extends IBaseDAO<PO> {
 	List<QueryPO> find(QueryPO po);
-	
-	boolean delete(long id);
 }
