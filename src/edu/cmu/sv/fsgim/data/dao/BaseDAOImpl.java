@@ -1,6 +1,5 @@
 package edu.cmu.sv.fsgim.data.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,14 +7,19 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
-import edu.cmu.sv.fsgim.data.po.QueryPO;
+import edu.cmu.sv.fsgim.data.po.BasePO;
 import edu.cmu.sv.fsgim.data.util.EMF;
 
-public class QueryDAOImpl implements IQueryDAO {
-	private static final Logger LOG = Logger.getLogger(QueryDAOImpl.class);
+public class BaseDAOImpl<PO extends BasePO> implements IBaseDAO<PO> {
+	private static final Logger LOG = Logger.getLogger(BaseDAOImpl.class);
+	private Class<PO> poClass;
+
+	public BaseDAOImpl(Class<PO> po) {
+		this.poClass = po;
+	}
 
 	@Override
-	public QueryPO save(QueryPO po) {
+	public PO save(PO po) {
 		LOG.trace(po);
 
 		if (po == null) {
@@ -46,19 +50,20 @@ public class QueryDAOImpl implements IQueryDAO {
 	}
 
 	@Override
-	public QueryPO findById(long id) {
+	public PO findById(long id) {
 		return findById(id, getEntityManager());
 	}
-	
-	public QueryPO findById(long id, EntityManager em) {
+
+	public PO findById(long id, EntityManager em) {
 		LOG.trace(id);
-		
-		final String findByIdQuery = "select po from QueryPO po where id = :id";
+
+		final String findByIdQuery = "select po from " + getPOClassName()
+				+ " po where id = :id";
 		Query q = em.createQuery(findByIdQuery);
 		q.setParameter("id", id);
-		List<QueryPO> pos = executeQuery(q);
+		List<PO> pos = executeQuery(q);
 
-		QueryPO po = null;
+		PO po = null;
 		if (pos != null && pos.size() > 0) {
 			po = pos.get(0);
 		}
@@ -67,29 +72,11 @@ public class QueryDAOImpl implements IQueryDAO {
 	}
 
 	@Override
-	public List<QueryPO> findAll() {
-		final String findAllQuery = "select po from QueryPO po";
+	public List<PO> findAll() {
+		final String findAllQuery = "select po from " + getPOClassName()
+				+ " po";
 
 		return executeQuery(findAllQuery);
-	}
-
-	@Override
-	public List<QueryPO> find(QueryPO po) {
-		if (po == null)
-			return new ArrayList<QueryPO>();
-
-		final String findByNameQuery = "select po from QueryPO po "
-				+ "where modelName = :modelName "
-				+ "and modelVersion = :modelVersion "
-				+ "and queryClassification = :queryClassification "
-				+ "and queryName = :queryName ";
-		Query q = getEntityManager().createQuery(findByNameQuery);
-		q.setParameter("modelName", po.getModelName());
-		q.setParameter("modelVersion", po.getModelVersion());
-		q.setParameter("queryClassification", po.getQueryClassification());
-		q.setParameter("queryName", po.getQueryName());
-
-		return executeQuery(q);
 	}
 
 	@Override
@@ -97,7 +84,7 @@ public class QueryDAOImpl implements IQueryDAO {
 		boolean deleted = false;
 		EntityManager em = getEntityManager();
 		try {
-			QueryPO po = findById(id, em);
+			PO po = findById(id, em);
 			// This is just a fail safe check.
 			// Ideally this is not NULL at all times.
 			if (po != null) {
@@ -115,22 +102,26 @@ public class QueryDAOImpl implements IQueryDAO {
 		return deleted;
 	}
 
-	protected List<QueryPO> executeQuery(String queryStr) {
+	protected List<PO> executeQuery(String queryStr) {
 		Query q = getEntityManager().createQuery(queryStr);
 		@SuppressWarnings("unchecked")
-		List<QueryPO> pos = q.getResultList();
+		List<PO> pos = q.getResultList();
 
 		return pos;
 	}
 
-	protected List<QueryPO> executeQuery(Query q) {
+	protected List<PO> executeQuery(Query q) {
 		@SuppressWarnings("unchecked")
-		List<QueryPO> pos = q.getResultList();
+		List<PO> pos = q.getResultList();
 
 		return pos;
 	}
 
 	protected final EntityManager getEntityManager() {
 		return EMF.get().createEntityManager();
+	}
+
+	protected final String getPOClassName() {
+		return poClass.getSimpleName();
 	}
 }
