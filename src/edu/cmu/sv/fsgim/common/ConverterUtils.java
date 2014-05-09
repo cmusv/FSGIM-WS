@@ -34,7 +34,7 @@ public class ConverterUtils {
 		dto.setQueryString(po.getQueryString().getValue());
 		dto.setModelName(po.getModelName());
 		dto.setModelVersion(po.getModelVersion());
-
+		
 		updateWhoColumns(po, dto);
 
 		return dto;
