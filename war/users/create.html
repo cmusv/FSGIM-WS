@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>FSGIM - Custom Query Manager - Register a User</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/styles.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../js/messageNotification.js"></script>
+<script type="text/javascript">
+    // Convert the data on the page to JSON
+	function dataToJSON() {
+		return JSON.stringify({ userName : $("#userName").val(),
+			password : $("#password").val() });
+	}
+	// Function to clear all the fields on the page,
+	// to get the page ready for the next query.
+	function clearAllFields() {
+		showNotification("User added successfully");
+        $("#userName").val("");
+        $("#password").val("");
+        $("#passwordRe").val("");
+	}
+	// Run this method when the page loads.
+	$(document).ready(function() {
+		$("#addBtn").click(function() {
+		    var password = $("#password").val();
+		    var passwordRe = $("#passwordRe").val();
+		    
+		    if(password != passwordRe) {
+		      showNotification("Error: Passwords do not match. Please try again");
+		      return;
+		    }
+		    
+			request = $.ajax({
+		        url: "/rest/users",
+		        type: "POST",
+		        contentType: 'application/json',
+		        dataType: 'json',
+		        data: dataToJSON()	
+		    });
+			
+			// callback handler that will be called on success
+		    request.done(function (response, textStatus, jqXHR){
+		        // log a message to the console
+		        clearAllFields();
+		    });
+
+		    // callback handler that will be called on failure
+		    request.fail(function (jqXHR, textStatus, errorThrown){
+		        // log the error to the console
+		        console.error("The following error occured: "+
+		            textStatus, errorThrown
+		        );
+		        
+		        showNotification("Error: "+ errorThrown);
+		    });
+		});
+	});
+</script>
+</head>
+<body>
+	<form id="userForm" action="/rest/users" method="POST">
+	<table align="center">
+		<thead>
+			<td colspan="2">
+				<b>Please enter the following information to add a new user:</b>
+			</td>
+		</thead>
+		<tr>
+            <td>User Name:</td>
+            <td><input type="text" id="userName"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" id="password"/></td>
+        </tr>
+		<tr>
+			<td>Re-enter Password:</td>
+			<td><input type="password" id="passwordRe"/></td>
+		</tr>
+		<tfoot>
+			<td colspan="2" style="text-align: center;">
+				<button id="addBtn" type="button">Add</button> &nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="reset">Reset</button>
+			</td>
+		</tfoot>
+	</table>
+	</form>
+</body>
+</html>

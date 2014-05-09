@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>FSGIM - Custom Query Manager - List all Users</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/styles.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../js/messageNotification.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		request = $.ajax({
+	        url: "/rest/users",
+	        type: "GET",
+	        contentType: 'application/json',
+	        dataType: 'json'
+	    });
+		
+		// callback handler that will be called on success
+	    request.done(function (response, textStatus, jqXHR){
+	        // log a message to the console
+	        console.log("Response obtained:: " + response);
+	        
+	        // Populate the results table on the page.
+	        $("#usersListingTbl").append("<tr><td align='center'>" +
+	        "<b>Following is a list of all available Users</b></td></tr>");
+	        var headerRow = "<tr>" + 
+	            "<td><b>User Name</b></td>" +
+				"</tr>";
+	        $(headerRow).appendTo("#usersListingTbl > tbody");
+	        $.each(response, function(i, user) {
+	              var deleteButton = "<input type='button' value='Delete' onclick='performDelete(" + user.id + ")' />";
+	        	  var queryRow = "<tr id ='" + user.id + "'>" +
+					"<td>" + user.userName + "</td>" +
+                    "<td>" + deleteButton + "</td>" +
+					"</tr>";	  
+	        	  $("#usersListingTbl").append(queryRow);
+	        }); 
+	    });
+
+	    // callback handler that will be called on failure
+	    request.fail(function (jqXHR, textStatus, errorThrown){
+	        // log the error to the console
+	        console.log("The following error occured: "+ textStatus, errorThrown
+	        );
+	    });
+	});
+	
+	function performDelete(userId) {
+        console.log("User ID = " + userId);
+        localStorage.setItem('delUserId', userId);
+        
+        req = $.ajax({
+            url: "/rest/users/" + userId,
+            type: "DELETE",
+            contentType: 'application/json',
+            dataType: 'json'
+        });
+        
+        // callback handler that will be called on success
+        req.done(function (response, textStatus, jqXHR){
+            showNotification("User deleted successfully.");
+            var uId = localStorage.getItem('delUserId');
+            $('table#usersListingTbl tr#' + uId).remove();
+            console.log('Row with id ' + uId + ' removed from table');
+            localStorage.removeItem('delUserId');
+        });
+        
+        // callback handler that will be called on failure
+        req.fail(function (jqXHR, textStatus, errorThrown){
+            // log the error to the console
+            console.log("The following error occured: "+ textStatus);
+        });
+    }
+</script>
+</head>
+<body>
+	<form id="queryForm" action="/rest/users" method="GET">
+	   <table align="center" id="usersListingTbl"></table>
+	</form>
+</body>
+</html>
