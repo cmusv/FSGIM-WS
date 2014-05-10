@@ -22,7 +22,7 @@ function onLoadCreatePage() {
 				if(!validatePage()) {
 					return false;
 				}
-				
+				showNotification("Logging in. Please wait ...");
 				request = $.ajax({
 					url : "/rest/login",
 					type : "POST",
