@@ -3,10 +3,10 @@ $(document).ready(function() {
 	if(!userId) {
 		console.log("No logged in user. Redirecting to login page...");
 		
-		// Disable all links
-		$('a').bind("click.myDisable", function() { return false; });
-		showNotification("No logged in user. Redirecting to login page...");
-		window.location.replace("/login.html");
+		var sURL = document.URL;
+		var baseURL = sURL.substring(0, sURL.indexOf('/', 7));
+
+		window.location.replace(baseURL + "/login.html");
 	} else {
 		// Add a footer for users to use.
 		var userName = localStorage.getItem("userName");
