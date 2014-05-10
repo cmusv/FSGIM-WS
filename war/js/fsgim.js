@@ -5,6 +5,10 @@ $(document).ready(
 			var baseURL = sURL.substring(0, sURL.indexOf('/', 7));
 
 			if (!userId) {
+				if(sURL.indexOf('login.html') > 0) {
+					console.log('Already on login page. Ignore redirect.')
+					return;
+				}
 				console.log("No logged in user. Redirecting to login page...");
 				window.location.replace(baseURL + "/login.html");
 			} else {
