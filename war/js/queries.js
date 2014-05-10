@@ -60,7 +60,7 @@ function onLoadCreatePage() {
 	        );
 	        
 	        showNotification("The following error occured: "+
-		            textStatus);
+	        		errorThrown);
 	    });
 	});
 }
