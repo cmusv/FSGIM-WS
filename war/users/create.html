@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="../css/styles.css" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script type="text/javascript" src="../js/messageNotification.js"></script>
+<script type="text/javascript" src="../js/fsgim.js"></script>
 <script type="text/javascript">
     // Convert the data on the page to JSON
 	function dataToJSON() {
@@ -14,7 +15,7 @@
 	// Function to clear all the fields on the page,
 	// to get the page ready for the next query.
 	function clearAllFields() {
-		showNotification("User added successfully");
+		showNotification("User saved successfully");
         $("#userName").val("");
         $("#password").val("");
         $("#passwordRe").val("");
@@ -22,6 +23,8 @@
 	// Run this method when the page loads.
 	$(document).ready(function() {
 		$("#addBtn").click(function() {
+		    showNotification("Saving information. Please wait ... ");
+		    
 		    var password = $("#password").val();
 		    var passwordRe = $("#passwordRe").val();
 		    
