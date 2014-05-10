@@ -5,41 +5,12 @@
 <link rel="stylesheet" href="../css/styles.css" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script type="text/javascript" src="../js/messageNotification.js"></script>
+<script type="text/javascript" src="../js/fsgim.js"></script>
+<script type="text/javascript" src="../js/login.js"></script>
 <script type="text/javascript">
-    // Convert the data on the page to JSON
-    function dataToJSON() {
-        return JSON.stringify({ userName : $("#userName").val(),
-            password : $("#password").val() });
-    }
     // Run this method when the page loads.
     $(document).ready(function() {
-        $("#loginBtn").click(function() {            
-            request = $.ajax({
-                url: "/rest/login",
-                type: "POST",
-                contentType: 'application/json',
-                dataType: 'json',
-                data: dataToJSON()  
-            });
-            
-            // callback handler that will be called on success
-            request.done(function (response, textStatus, jqXHR){
-                // Navigate to index.html page.
-                console.log("User login successful !!!");
-                localStorage.setItem("userId",response.id);
-                localStorage.setItem("userName",response.userName);
-                window.location.replace("index.html");
-            });
-
-            // callback handler that will be called on failure
-            request.fail(function (jqXHR, textStatus, errorThrown){
-                // log the error to the console
-                console.error("The following error occured: "+ textStatus, 
-                    errorThrown);
-                
-                showNotification("Error: "+ errorThrown);
-            });
-        });
+        onLoadCreatePage();
     });
 </script>
 </head>
