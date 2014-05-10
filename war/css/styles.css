@@ -44,3 +44,11 @@ td {
 .close-notify a {
     color: #fff;
 }
+
+#headerDiv {
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 18px;
+    width: 95%;
+    float:left;
+}
