@@ -6,80 +6,12 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script type="text/javascript" src="../js/messageNotification.js"></script>
 <script type="text/javascript" src="../js/fsgim.js"></script>
+<script type="text/javascript" src="../js/queries.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {		
-		request = $.ajax({
-	        url: "/rest/queries",
-	        type: "GET",
-	        contentType: 'application/json',
-	        dataType: 'json'
-	    });
-		
-		// callback handler that will be called on success
-	    request.done(function (response, textStatus, jqXHR){
-	        // log a message to the console
-	        console.log("Response obtained:: " + response);
-	        
-	        // Populate the results table on the page.
-	        $("#queriesListingTbl").append("<tr><td colspan=5 align='center'>" +
-	        "<b>Following is a list of all available Queries</b></td></tr>");
-	        var headerRow = "<tr>" + 
-	            "<td><b>Model Name</b></td>" +
-	            "<td><b>Model Version</b></td>" +
-				"<td><b>Query Classification</b></td>" +
-				"<td><b>Query Name</b></td>" +
-				"<td><b>Query String</b></td>" +
-				"<td>&nbsp;</td>" +
-				"</tr>";
-	        $(headerRow).appendTo("#queriesListingTbl > tbody");
-	        $.each(response, function(i, query) {
-	              var deleteButton = "<input type='button' value='Delete' onclick='performDelete(" + query.id + ")' />";
-	        	  var queryRow = "<tr id ='" + query.id + "'>" +
-					"<td>" + query.modelName + "</td>" +
-					"<td>" + query.modelVersion + "</td>"+
-					"<td>" + query.queryClassification + "</td>" +
-                    "<td>" + query.queryName + "</td>"+
-                    "<td>" + query.queryString + "</td>" +
-                    "<td>" + deleteButton + "</td>" +
-					"</tr>";	  
-	        	  $("#queriesListingTbl").append(queryRow);
-	        }); 
-	    });
-
-	    // callback handler that will be called on failure
-	    request.fail(function (jqXHR, textStatus, errorThrown){
-	        // log the error to the console
-	        console.log("The following error occured: "+ textStatus, errorThrown
-	        );
-	    });
-	});
-	
-	function performDelete(queryId) {
-        console.log("Query ID = " + queryId);
-        localStorage.setItem('delQueryId', queryId);
-        
-        req = $.ajax({
-            url: "/rest/queries/" + queryId,
-            type: "DELETE",
-            contentType: 'application/json',
-            dataType: 'json'
-        });
-        
-        // callback handler that will be called on success
-        req.done(function (response, textStatus, jqXHR){
-            showNotification("Query deleted successfully.");
-            var qId = localStorage.getItem('delQueryId');
-            $('table#queriesListingTbl tr#' + qId).remove();
-            console.log('Row with id ' + qId + ' removed from table');
-            localStorage.removeItem('delQueryId');
-        });
-        
-        // callback handler that will be called on failure
-        req.fail(function (jqXHR, textStatus, errorThrown){
-            // log the error to the console
-            console.log("The following error occured: "+ textStatus);
-        });
-    }
+    // Run this method when the page loads.
+    $(document).ready(function() {
+        onLoadShowPage();
+    });
 </script>
 </head>
 <body>
