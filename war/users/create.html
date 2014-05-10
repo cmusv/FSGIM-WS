@@ -6,58 +6,12 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script type="text/javascript" src="../js/messageNotification.js"></script>
 <script type="text/javascript" src="../js/fsgim.js"></script>
+<script type="text/javascript" src="../js/users.js"></script>
 <script type="text/javascript">
-    // Convert the data on the page to JSON
-	function dataToJSON() {
-		return JSON.stringify({ userName : $("#userName").val(),
-			password : $("#password").val() });
-	}
-	// Function to clear all the fields on the page,
-	// to get the page ready for the next query.
-	function clearAllFields() {
-		showNotification("User saved successfully");
-        $("#userName").val("");
-        $("#password").val("");
-        $("#passwordRe").val("");
-	}
-	// Run this method when the page loads.
-	$(document).ready(function() {
-		$("#addBtn").click(function() {
-		    showNotification("Saving information. Please wait ... ");
-		    
-		    var password = $("#password").val();
-		    var passwordRe = $("#passwordRe").val();
-		    
-		    if(password != passwordRe) {
-		      showNotification("Error: Passwords do not match. Please try again");
-		      return;
-		    }
-		    
-			request = $.ajax({
-		        url: "/rest/users",
-		        type: "POST",
-		        contentType: 'application/json',
-		        dataType: 'json',
-		        data: dataToJSON()	
-		    });
-			
-			// callback handler that will be called on success
-		    request.done(function (response, textStatus, jqXHR){
-		        // log a message to the console
-		        clearAllFields();
-		    });
-
-		    // callback handler that will be called on failure
-		    request.fail(function (jqXHR, textStatus, errorThrown){
-		        // log the error to the console
-		        console.error("The following error occured: "+
-		            textStatus, errorThrown
-		        );
-		        
-		        showNotification("Error: "+ errorThrown);
-		    });
-		});
-	});
+    // Run this method when the page loads.
+    $(document).ready(function() {
+        onLoadCreatePage();
+    });
 </script>
 </head>
 <body>
@@ -70,15 +24,15 @@
 		</thead>
 		<tr>
             <td>User Name:</td>
-            <td><input type="text" id="userName"/></td>
+            <td><input type="text" id="userName" required/></td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="password" id="password"/></td>
+            <td><input type="password" id="password" required/></td>
         </tr>
 		<tr>
 			<td>Re-enter Password:</td>
-			<td><input type="password" id="passwordRe"/></td>
+			<td><input type="password" id="passwordRe" required/></td>
 		</tr>
 		<tfoot>
 			<td colspan="2" style="text-align: center;">
