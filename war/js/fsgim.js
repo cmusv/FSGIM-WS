@@ -12,8 +12,14 @@ $(document).ready(function() {
 		var userName = localStorage.getItem("userName");
 		var divHtml = '<div id="footerDiv">' +
 		'<span>Welcome ' + userName + '!!</span>' +
-		'<a href="login.html" class="close-notify">Logout</a> '+
+		'<a id="logout" href="login.html">Logout</a> '+
 		'</div>';
-		$('body').append(divHtml);
+		$('body').prepend(divHtml);
+		
+		// Add onclick listener for logout link
+		$('#logout').click(function() {
+			localStorage.removeItem('userId');
+			localStorage.removeItem('userName');
+		});
 	}
 });
