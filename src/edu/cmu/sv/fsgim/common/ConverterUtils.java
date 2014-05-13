@@ -4,8 +4,10 @@ import com.google.appengine.api.datastore.Text;
 
 import edu.cmu.sv.fsgim.business.dto.BaseDTO;
 import edu.cmu.sv.fsgim.business.dto.Query;
+import edu.cmu.sv.fsgim.business.dto.Version;
 import edu.cmu.sv.fsgim.data.po.BasePO;
 import edu.cmu.sv.fsgim.data.po.QueryPO;
+import edu.cmu.sv.fsgim.data.po.VersionPO;
 
 public class ConverterUtils {
 	public static final QueryPO convert(Query dto) {
@@ -34,10 +36,38 @@ public class ConverterUtils {
 		dto.setQueryString(po.getQueryString().getValue());
 		dto.setModelName(po.getModelName());
 		dto.setModelVersion(po.getModelVersion());
-		
+
 		updateWhoColumns(po, dto);
 
 		return dto;
+	}
+
+	public static final Version convert(VersionPO po) {
+		if (po == null) {
+			return null;
+		}
+
+		Version dto = new Version();
+		dto.setVersionNumber(po.getVersionNumber());
+		dto.setDescription(po.getDescription());
+
+		updateWhoColumns(po, dto);
+
+		return dto;
+	}
+
+	public static final VersionPO convert(Version dto) {
+		if (dto == null) {
+			return null;
+		}
+
+		VersionPO po = new VersionPO();
+		po.setVersionNumber(dto.getVersionNumber());
+		po.setDescription(dto.getDescription());
+
+		updateWhoColumns(dto, po);
+
+		return po;
 	}
 
 	public static final void updateWhoColumns(BasePO source, BaseDTO dest) {
