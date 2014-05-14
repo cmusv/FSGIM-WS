@@ -51,7 +51,7 @@ public class QueryManager {
 		QueryPO po = ConverterUtils.convert(query);
 
 		List<QueryPO> existingPOs = dao.find(po);
-		System.out.println("Existing POs = " + existingPOs);
+		LOG.trace("Existing POs = " + existingPOs);
 		QueryPO existingPO = null;
 
 		// Log a warning to the log file saying we are using the first object to

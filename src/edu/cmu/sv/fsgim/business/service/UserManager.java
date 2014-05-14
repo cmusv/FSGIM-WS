@@ -35,7 +35,7 @@ public class UserManager {
 		LOG.trace(user);
 
 		List<UserPO> existingPOs = dao.findByUserName(user.getUserName());
-		System.out.println("Existing POs = " + existingPOs);
+		LOG.trace("Existing POs = " + existingPOs);
 
 		// If the user name is already taken, raise an exception.
 		if (existingPOs != null && existingPOs.size() > 0) {
