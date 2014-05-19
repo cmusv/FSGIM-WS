@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>FSGIM - Custom Query Manager - Register a Version</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/styles.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../js/messageNotification.js"></script>
+<script type="text/javascript" src="../js/fsgim.js"></script>
+<script type="text/javascript" src="../js/users.js"></script>
+<script type="text/javascript">
+    // Run this method when the page loads.
+    $(document).ready(function() {
+        onLoadCreatePage();
+    });
+</script>
+</head>
+<body>
+	<form id="userForm" action="/rest/users" method="POST">
+	<table align="center">
+		<thead>
+			<td colspan="2">
+				<b>Please enter the following information to add a new user:</b>
+			</td>
+		</thead>
+		<tr>
+            <td>User Name:</td>
+            <td><input type="text" id="userName" required/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" id="password" required/></td>
+        </tr>
+		<tr>
+			<td>Re-enter Password:</td>
+			<td><input type="password" id="passwordRe" required/></td>
+		</tr>
+		<tfoot>
+			<td colspan="2" style="text-align: center;">
+				<button id="addBtn" type="button">Add</button> &nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="reset">Reset</button>
+			</td>
+		</tfoot>
+	</table>
+	</form>
+</body>
+</html>
