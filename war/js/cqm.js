@@ -1,49 +1,6 @@
-$(document).ready(
-		function() {
-			var userId = localStorage.getItem("userId");
-			var sURL = document.URL;
-			var baseURL = sURL.substring(0, sURL.indexOf('/', 7));
-
-			if (!userId) {
-				if(sURL.indexOf('login.html') > 0) {
-					console.log('Already on login page. Ignore redirect.')
-					return;
-				}
-				console.log("No logged in user. Redirecting to login page...");
-				window.location.replace(baseURL + "/login.html");
-			} else {
-				// Add a footer for users to use.
-				var userName = localStorage.getItem("userName");
-				var spaces = '&nbsp;&nbsp;&nbsp;&nbsp;';
-				var divHtml = '<div id="headerDiv"><br/><br/>' + '<b>Welcome '
-						+ userName + ' !</b>' + spaces + '<a id="home" href="'
-						+ baseURL + '/index.html">Home</a>' + spaces
-						+ '<a id="logout" href="' + baseURL
-						+ '/login.html">Logout</a> ' + '</div>';
-				$('body').prepend(divHtml);
-
-				// Add onclick listener for logout link
-				$('#logout').click(function() {
-					localStorage.removeItem('userId');
-					localStorage.removeItem('userName');
-				});
-			}
-		});
-
-// Utility method to check if a field has empty value
-// and shows a notification.
-function validateEmptyString(value, fieldName) {
-	if ("" == value.trim()) {
-		showNotification(fieldName + " is mandatory.");
-		return false;
-	}
-	
-	return true;
-}
-
-function populateModelNames(comboBoxId) {
+function populateModelNames(modelNameComboBoxId) {
 	showNotification("Loading model names. Please wait ... ");
-	console.log("Getting model names to populate in combo box: " + comboBoxId);
+	console.log("Getting model names to populate in combo box: " + modelNameComboBoxId);
 	request = $.ajax({
 		url : "/rest/models",
 		type : "GET",
@@ -55,15 +12,22 @@ function populateModelNames(comboBoxId) {
 	request.done(
 		function(response, textStatus, jqXHR) {
 		// log a message to the console
-		console.log("Response obtained:: " + response);
+		console.log("Model Names Response obtained:: " + response);
 
+		// Empty the list before adding new model names
+		$("#" + modelNameComboBoxId).empty();
+		
 		// Populate the results table on the page.
 		$.each(response, 
 				function(i, model) {
-					$("#" + comboBoxId).append($('<option></option>').val(model.modelName).html(model.modelName));
+					$("#" + modelNameComboBoxId).append($('<option></option>').val(model.modelName).html(model.modelName));
 				});
-		
-		callBackAfterPopulateModelNames(comboBoxId);
+		try {
+			callBackAfterPopulateModelNames(modelNameComboBoxId);
+		} catch (err) {
+			console.log("INFO: Callback method not implemented. Error details below:");
+			console.log(err);
+		}
 	});
 
 	// callback handler that will be called on failure
@@ -87,7 +51,7 @@ function populateModelVersions(modelNameComboBoxId, modelVersionComboBoxId) {
 	request.done(
 		function(response, textStatus, jqXHR) {
 		// log a message to the console
-		console.log("Response obtained:: " + response);
+		console.log("Model Versions Response obtained:: " + response);
 
 		// Empty the list before adding new versions
 		$("#" + modelVersionComboBoxId).empty();
@@ -102,7 +66,12 @@ function populateModelVersions(modelNameComboBoxId, modelVersionComboBoxId) {
 						$("#" + modelVersionComboBoxId).append($('<option></option>').val(version.versionNumber).html(version.versionNumber));
 					}
 				});
-		callBackAfterPopulateModelVersions(modelNameComboBoxId, modelVersionComboBoxId);
+		try {
+			callBackAfterPopulateModelVersions(modelNameComboBoxId, modelVersionComboBoxId);
+		} catch (err) {
+			console.log("INFO: Callback method not implemented. Error details below:");
+			console.log(err);
+		}
 	});
 
 	// callback handler that will be called on failure
