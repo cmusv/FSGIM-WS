@@ -33,8 +33,8 @@ public class VersionManager {
 	public Version addVersion(Version version) {
 		LOG.trace(version);
 
-		List<VersionPO> versions = dao.findByVersionNumber(version
-				.getVersionNumber());
+		List<VersionPO> versions = dao.findByVersionNumber(
+				version.getModelName(), version.getVersionNumber());
 		LOG.trace("Existing versions = " + versions);
 
 		VersionPO po = null;
@@ -77,7 +77,7 @@ public class VersionManager {
 
 		return versions;
 	}
-	
+
 	@DELETE
 	@Path("/{id}")
 	public void deleteVersion(@PathParam("id") String id) {
