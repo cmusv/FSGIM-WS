@@ -1,5 +1,8 @@
 package edu.cmu.sv.fsgim.data.po;
 
+import javax.persistence.Entity;
+
+@Entity
 public class VersionPO extends BasePO {
 	private String versionNumber;
 	private String description;
