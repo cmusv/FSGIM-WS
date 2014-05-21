@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -74,5 +76,30 @@ public class VersionManager {
 		LOG.trace("Exiting findAll method with: " + versions);
 
 		return versions;
+	}
+	
+	@DELETE
+	@Path("/{id}")
+	public void deleteVersion(@PathParam("id") String id) {
+		LOG.trace("Inside delete method, ID = " + id);
+		long versionId = 0L;
+		try {
+			versionId = Long.parseLong(id);
+		} catch (Exception e) {
+			throw new RuntimeException("Error when parsing user ID provided.",
+					e);
+		}
+
+		boolean isDeleted = dao.delete(versionId);
+
+		// If there is something wrong, and the query did not get deleted,
+		// raise an exception and report it.
+		if (!isDeleted) {
+			throw new RuntimeException(
+					"There was a problem when deleting the user. "
+							+ "Please check GAE server log.");
+		}
+
+		LOG.trace("Exiting delete method");
 	}
 }
