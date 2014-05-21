@@ -31,7 +31,7 @@ public class VersionManager {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Version addVersion(Version version) {
-		LOG.trace(version);
+		LOG.trace("Inside addVersion method with; version = " + version);
 
 		List<VersionPO> versions = dao.findByVersionNumber(
 				version.getModelName(), version.getVersionNumber());
@@ -56,7 +56,7 @@ public class VersionManager {
 		po = dao.save(po);
 		version.setId(po.getId());
 
-		LOG.trace(version);
+		LOG.trace("Exiting addVersion method with; version = " + version);
 		return version;
 	}
 
@@ -86,7 +86,7 @@ public class VersionManager {
 		try {
 			versionId = Long.parseLong(id);
 		} catch (Exception e) {
-			throw new RuntimeException("Error when parsing user ID provided.",
+			throw new RuntimeException("Error when parsing version ID provided.",
 					e);
 		}
 
