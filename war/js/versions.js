@@ -1,6 +1,7 @@
 // Convert the data on the page to JSON
 function dataToJSON() {
 	return JSON.stringify({
+		modelName : $("#modelName").val(), 
 		versionNumber : $("#versionNumber").val(),
 		description : $("#description").val()
 	});
@@ -9,6 +10,7 @@ function dataToJSON() {
 // Function to clear all the fields on the page,
 // to get the page ready for the next query.
 function clearAllFields() {
+	$("#modelName").val("");
 	$("#versionNumber").val("");
 	$("#description").val("");
 }
@@ -64,6 +66,7 @@ function onLoadShowPage() {
 								"<tr><td align='center'>"
 										+ "<b>Following is a list of all available Versions</b></td></tr>");
 				var headerRow = "<tr>" 
+					+ "<td><b>Model Name</b></td>"
 					+ "<td><b>Version Number</b></td>" 
 					+ "<td><b>Description</b></td>"
 					+ "</tr>";
@@ -75,6 +78,7 @@ function onLoadShowPage() {
 									var deleteButton = "<input type='button' value='Delete' onclick='performDelete("
 											+ version.id + ")' />";
 									var queryRow = "<tr id ='" + version.id + "'>"
+											+ "<td>" + version.modelName + "</td>"
 											+ "<td>" + version.versionNumber + "</td>"
 											+ "<td>" + version.description + "</td>"
 											+ "<td>" + deleteButton + "</td>"
