@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>FSGIM - Custom Query Manager - List all Users</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/styles.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../js/messageNotification.js"></script>
+<script type="text/javascript" src="../js/fsgim.js"></script>
+<script type="text/javascript" src="../js/models.js"></script>
+<script type="text/javascript">
+    // Run this method when the page loads.
+    $(document).ready(function() {
+        onLoadShowPage();
+    });
+</script>
+</head>
+<body>
+	<form id="queryForm" action="/rest/models" method="GET">
+	   <table align="center" id="modelsListingTbl"></table>
+	</form>
+</body>
+</html>
