@@ -15,6 +15,11 @@ function clearAllFields() {
 	$("#description").val("");
 }
 
+function callBackAfterPopulateModelNames(modelNameComboBoxId) {
+	console.log("Model Names loaded -- print from call back method.");
+	closeNotification();
+}
+
 function onLoadCreatePage() {
 	populateModelNames("modelNames");
 	$("#addBtn").click(
