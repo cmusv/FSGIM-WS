@@ -3,9 +3,11 @@ package edu.cmu.sv.fsgim.common;
 import com.google.appengine.api.datastore.Text;
 
 import edu.cmu.sv.fsgim.business.dto.BaseDTO;
+import edu.cmu.sv.fsgim.business.dto.Model;
 import edu.cmu.sv.fsgim.business.dto.Query;
 import edu.cmu.sv.fsgim.business.dto.Version;
 import edu.cmu.sv.fsgim.data.po.BasePO;
+import edu.cmu.sv.fsgim.data.po.ModelPO;
 import edu.cmu.sv.fsgim.data.po.QueryPO;
 import edu.cmu.sv.fsgim.data.po.VersionPO;
 
@@ -64,6 +66,34 @@ public class ConverterUtils {
 
 		VersionPO po = new VersionPO();
 		po.setVersionNumber(dto.getVersionNumber());
+		po.setDescription(dto.getDescription());
+		po.setModelName(dto.getModelName());
+
+		updateWhoColumns(dto, po);
+
+		return po;
+	}
+
+	public static final Model convert(ModelPO po) {
+		if (po == null) {
+			return null;
+		}
+
+		Model dto = new Model();
+		dto.setDescription(po.getDescription());
+		dto.setModelName(po.getModelName());
+
+		updateWhoColumns(po, dto);
+
+		return dto;
+	}
+
+	public static final ModelPO convert(Model dto) {
+		if (dto == null) {
+			return null;
+		}
+
+		ModelPO po = new ModelPO();
 		po.setDescription(dto.getDescription());
 		po.setModelName(dto.getModelName());
 
