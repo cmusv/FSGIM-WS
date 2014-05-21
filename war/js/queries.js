@@ -1,7 +1,9 @@
 // Validate for good data
 function validatePage() {
-	if( validateEmptyString($("#modelName").val(), 'Model Name') &&
-			validateEmptyString($("#modelVersion").val(), 'Model Version') && 
+	var modelName = $("#modelNames").find(":selected").text();
+	var modelVersion = $("#modelVersions").find(":selected").text();
+	if( validateEmptyString(modelName, 'Model Name') &&
+			validateEmptyString(modelVersion, 'Model Version') && 
 			validateEmptyString($("#queryClassification").val(), 'Query Classification') && 
 			validateEmptyString($("#queryName").val(), 'Query Name') &&
 			validateEmptyString($("#queryString").val(), 'Query String')) {
@@ -16,8 +18,8 @@ function dataToJSON() {
 	return JSON.stringify({ queryClassification : $("#queryClassification").val(),
 		queryName : $("#queryName").val(),
 		queryString : $("#queryString").val(),
-		modelName : $("#modelName").val(),
-		modelVersion: $("#modelVersion").val() });
+		modelName : $("#modelNames").find(":selected").text(),
+		modelVersion: $("#modelVersions").find(":selected").text() });
 }
 
 // Function to clear all the fields on the page,
@@ -27,11 +29,24 @@ function clearAllFields() {
     $("#queryClassification").val("");
     $("#queryName").val("");
     $("#queryString").val("");
-    $("#modelName").val("");
-    $("#modelVersion").val("");
+    $('select option:first-child').attr("selected", "selected");
+}
+
+function callBackAfterPopulateModelNames(modelNameComboBoxId) {
+	console.log("Model Names loaded -- print from call back method.");
+	populateModelVersions(modelNameComboBoxId, "modelVersions");
+}
+
+function callBackAfterPopulateModelVersions(modelNameComboBoxId, modelVersionsComboBoxId) {
+	console.log("Model Versions loaded -- print from call back method.");
+	$("#modelNames").change(function() {
+		populateModelVersions(modelNameComboBoxId, modelVersionsComboBoxId);
+	});	
+	closeNotification();
 }
 
 function onLoadCreatePage() {
+	populateModelNames("modelNames");
 	$("#addBtn").click(function() {
 		if(!validatePage()) {
 			return false;
