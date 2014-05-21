@@ -1,7 +1,7 @@
 // Convert the data on the page to JSON
 function dataToJSON() {
 	return JSON.stringify({
-		modelName : $("#modelName").val(), 
+		modelName : $("#modelNames").find(":selected").text(),
 		versionNumber : $("#versionNumber").val(),
 		description : $("#description").val()
 	});
@@ -10,12 +10,13 @@ function dataToJSON() {
 // Function to clear all the fields on the page,
 // to get the page ready for the next query.
 function clearAllFields() {
-	$("#modelName").val("");
+	$('select option:first-child').attr("selected", "selected");
 	$("#versionNumber").val("");
 	$("#description").val("");
 }
 
 function onLoadCreatePage() {
+	populateModelNames("modelNames");
 	$("#addBtn").click(
 			function() {
 				showNotification("Saving information. Please wait ... ");

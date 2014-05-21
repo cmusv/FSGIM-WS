@@ -40,3 +40,32 @@ function validateEmptyString(value, fieldName) {
 	
 	return true;
 }
+
+function populateModelNames(comboBoxId) {
+	console.log("Getting model names to populate in combo box: " + comboBoxId);
+	request = $.ajax({
+		url : "/rest/models",
+		type : "GET",
+		contentType : 'application/json',
+		dataType : 'json'
+	});
+
+	// callback handler that will be called on success
+	request.done(
+		function(response, textStatus, jqXHR) {
+		// log a message to the console
+		console.log("Response obtained:: " + response);
+
+		// Populate the results table on the page.
+		$.each(response, 
+				function(i, model) {
+					$("#" + comboBoxId).append($('<option></option>').val(model.modelName).html(model.modelName));
+				});
+	});
+
+	// callback handler that will be called on failure
+	request.fail(function(jqXHR, textStatus, errorThrown) {
+		// log the error to the console
+		console.log("The following error occured: " + textStatus, errorThrown);
+	});
+}
