@@ -6,6 +6,15 @@ import javax.persistence.Entity;
 public class VersionPO extends BasePO {
 	private String versionNumber;
 	private String description;
+	private String modelName;
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
 
 	public String getVersionNumber() {
 		return versionNumber;
@@ -26,8 +35,9 @@ public class VersionPO extends BasePO {
 	@Override
 	public String toString() {
 		return "VersionPO [versionNumber=" + versionNumber + ", description="
-				+ description + ", getId()=" + getId() + ", getModifiedBy()="
-				+ getModifiedBy() + ", getModifiedTime()=" + getModifiedTime()
+				+ description + ", modelName=" + modelName + ", getId()="
+				+ getId() + ", getModifiedBy()=" + getModifiedBy()
+				+ ", getModifiedTime()=" + getModifiedTime()
 				+ ", getCreatedBy()=" + getCreatedBy() + ", getCreatedTime()="
 				+ getCreatedTime() + "]";
 	}
