@@ -104,7 +104,15 @@ public class UserManager {
 					e);
 		}
 
-		boolean isDeleted = dao.delete(userId);
+		boolean isDeleted = false;
+		synchronized("UserManager") {
+			List<UserPO> users = dao.findAll();
+			if(users == null || users.size() <= 1) {
+				throw new RuntimeException("Trying to delete the last "
+						+ "available user is not supported.");
+			}
+			isDeleted = dao.delete(userId);	
+		}
 
 		// If there is something wrong, and the query did not get deleted,
 		// raise an exception and report it.

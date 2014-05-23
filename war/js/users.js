@@ -111,6 +111,14 @@ function onLoadShowPage() {
 
 function performDelete(userId) {
 	console.log("User ID = " + userId);
+	
+	// Current user cannot delete his account. This is a fail safe to make 
+	// sure there is at least one valid account to login into the system.
+	if(userId == localStorage.getItem('userId')) {
+		showNotification('ERROR: You cannot delete the account that is currently logged in.');
+		return;
+	}
+		
 	localStorage.setItem('delUserId', userId);
 
 	req = $.ajax({
@@ -133,5 +141,6 @@ function performDelete(userId) {
 	req.fail(function(jqXHR, textStatus, errorThrown) {
 		// log the error to the console
 		console.log("The following error occured: " + textStatus);
+		showNotification("ERROR when deleting user: " + errorThrown);
 	});
 }
