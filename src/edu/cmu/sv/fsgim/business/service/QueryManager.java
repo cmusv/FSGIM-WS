@@ -69,11 +69,12 @@ public class QueryManager {
 
 		if (existingPO != null) {
 			// We are doing this statement to remove the dependency of entity
-			// manager
-			// that loaded the existing PO, so that we can merge during update.
+			// manager that loaded the existing PO, so that we can merge 
+			// during update.
 			existingPO = ConverterUtils.convert(ConverterUtils
 					.convert(existingPO));
 
+			existingPO.setQueryPrefix(po.getQueryPrefix());
 			existingPO.setQueryString(po.getQueryString());
 			existingPO.setModifiedTime(new Date());
 			po = existingPO;
