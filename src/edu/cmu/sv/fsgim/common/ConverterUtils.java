@@ -22,6 +22,7 @@ public class ConverterUtils {
 		po.setQueryString(new Text(dto.getQueryString()));
 		po.setModelName(dto.getModelName());
 		po.setModelVersion(dto.getModelVersion());
+		po.setQueryPrefix(dto.getQueryPrefix());
 
 		updateWhoColumns(dto, po);
 
@@ -38,6 +39,7 @@ public class ConverterUtils {
 		dto.setQueryString(po.getQueryString().getValue());
 		dto.setModelName(po.getModelName());
 		dto.setModelVersion(po.getModelVersion());
+		dto.setQueryPrefix(po.getQueryPrefix());
 
 		updateWhoColumns(po, dto);
 
