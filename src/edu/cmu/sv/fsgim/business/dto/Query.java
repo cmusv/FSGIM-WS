@@ -9,6 +9,15 @@ public class Query extends BaseDTO {
 	private String queryString;
 	private String modelVersion;
 	private String modelName;
+	private String queryPrefix;
+
+	public String getQueryPrefix() {
+		return queryPrefix;
+	}
+
+	public void setQueryPrefix(String queryPrefix) {
+		this.queryPrefix = queryPrefix;
+	}
 
 	public String getQueryClassification() {
 		return queryClassification;
@@ -55,8 +64,9 @@ public class Query extends BaseDTO {
 		return "Query [queryClassification=" + queryClassification
 				+ ", queryName=" + queryName + ", queryString=" + queryString
 				+ ", modelVersion=" + modelVersion + ", modelName=" + modelName
-				+ ", getId()=" + getId() + ", getModifiedBy()="
-				+ getModifiedBy() + ", getModifiedTime()=" + getModifiedTime()
+				+ ", queryPrefix=" + queryPrefix + ", getId()=" + getId()
+				+ ", getModifiedBy()=" + getModifiedBy()
+				+ ", getModifiedTime()=" + getModifiedTime()
 				+ ", getCreatedBy()=" + getCreatedBy() + ", getCreatedTime()="
 				+ getCreatedTime() + "]";
 	}

@@ -11,6 +11,15 @@ public class QueryPO extends BasePO {
 	private Text queryString;
 	private String modelVersion;
 	private String modelName;
+	private String queryPrefix;
+
+	public String getQueryPrefix() {
+		return queryPrefix;
+	}
+
+	public void setQueryPrefix(String queryPrefix) {
+		this.queryPrefix = queryPrefix;
+	}
 
 	public String getQueryClassification() {
 		return queryClassification;
@@ -57,8 +66,9 @@ public class QueryPO extends BasePO {
 		return "QueryPO [queryClassification=" + queryClassification
 				+ ", queryName=" + queryName + ", queryString=" + queryString
 				+ ", modelVersion=" + modelVersion + ", modelName=" + modelName
-				+ ", getId()=" + getId() + ", getModifiedBy()="
-				+ getModifiedBy() + ", getModifiedTime()=" + getModifiedTime()
+				+ ", queryPrefix=" + queryPrefix + ", getId()=" + getId()
+				+ ", getModifiedBy()=" + getModifiedBy()
+				+ ", getModifiedTime()=" + getModifiedTime()
 				+ ", getCreatedBy()=" + getCreatedBy() + ", getCreatedTime()="
 				+ getCreatedTime() + "]";
 	}
