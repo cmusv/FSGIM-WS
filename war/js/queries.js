@@ -17,6 +17,7 @@ function validatePage() {
 function dataToJSON() {
 	return JSON.stringify({ queryClassification : $("#queryClassification").val(),
 		queryName : $("#queryName").val(),
+		queryPrefix : $("#queryPrefix").val(),
 		queryString : $("#queryString").val(),
 		modelName : $("#modelNames").find(":selected").text(),
 		modelVersion: $("#modelVersions").find(":selected").text() });
@@ -28,6 +29,7 @@ function clearAllFields() {
 	showNotification("Query saved successfully");
     $("#queryClassification").val("");
     $("#queryName").val("");
+    $("#queryPrefix").val("");
     $("#queryString").val("");
     $('select option:first-child').attr("selected", "selected");
 }
@@ -101,6 +103,7 @@ function onLoadShowPage() {
             "<td><b>Model Version</b></td>" +
 			"<td><b>Query Classification</b></td>" +
 			"<td><b>Query Name</b></td>" +
+			"<td><b>Query Prefix</b></td>" +
 			"<td><b>Query String</b></td>" +
 			"<td>&nbsp;</td>" +
 			"</tr>";
@@ -112,6 +115,7 @@ function onLoadShowPage() {
 				"<td>" + query.modelVersion + "</td>"+
 				"<td>" + query.queryClassification + "</td>" +
                 "<td>" + query.queryName + "</td>"+
+                "<td>" + query.queryPrefix + "</td>"+
                 "<td>" + query.queryString + "</td>" +
                 "<td>" + deleteButton + "</td>" +
 				"</tr>";	  
