@@ -103,7 +103,7 @@ function onLoadShowPage() {
             "<td><b>Model Version</b></td>" +
 			"<td><b>Query Classification</b></td>" +
 			"<td><b>Query Name</b></td>" +
-			"<td><b>Query Prefix</b></td>" +
+			"<td><b>Extra Prefix(s)</b></td>" +
 			"<td><b>Query String</b></td>" +
 			"<td>&nbsp;</td>" +
 			"</tr>";
