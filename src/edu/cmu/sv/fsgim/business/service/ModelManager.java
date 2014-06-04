@@ -47,6 +47,7 @@ public class ModelManager {
 
 			po = ConverterUtils.convert(tempDTO);
 			po.setDescription(model.getDescription());
+			po.setQueriesURI(model.getQueriesURI());
 		} else {
 			po = ConverterUtils.convert(model);
 		}

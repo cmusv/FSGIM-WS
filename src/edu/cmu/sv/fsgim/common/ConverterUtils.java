@@ -84,6 +84,7 @@ public class ConverterUtils {
 		Model dto = new Model();
 		dto.setDescription(po.getDescription());
 		dto.setModelName(po.getModelName());
+		dto.setQueriesURI(po.getQueriesURI());
 
 		updateWhoColumns(po, dto);
 
@@ -98,6 +99,7 @@ public class ConverterUtils {
 		ModelPO po = new ModelPO();
 		po.setDescription(dto.getDescription());
 		po.setModelName(dto.getModelName());
+		po.setQueriesURI(dto.getQueriesURI());
 
 		updateWhoColumns(dto, po);
 
