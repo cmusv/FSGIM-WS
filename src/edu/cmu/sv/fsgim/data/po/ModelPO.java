@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 public class ModelPO extends BasePO {
 	private String modelName;
 	private String description;
+	private String queriesURI;
 
 	public String getModelName() {
 		return modelName;
@@ -23,11 +24,20 @@ public class ModelPO extends BasePO {
 		this.description = description;
 	}
 
+	public String getQueriesURI() {
+		return queriesURI;
+	}
+
+	public void setQueriesURI(String queriesURI) {
+		this.queriesURI = queriesURI;
+	}
+
 	@Override
 	public String toString() {
 		return "ModelPO [modelName=" + modelName + ", description="
-				+ description + ", getId()=" + getId() + ", getModifiedBy()="
-				+ getModifiedBy() + ", getModifiedTime()=" + getModifiedTime()
+				+ description + ", queriesURI=" + queriesURI + ", getId()="
+				+ getId() + ", getModifiedBy()=" + getModifiedBy()
+				+ ", getModifiedTime()=" + getModifiedTime()
 				+ ", getCreatedBy()=" + getCreatedBy() + ", getCreatedTime()="
 				+ getCreatedTime() + "]";
 	}
