@@ -1,3 +1,13 @@
+function validatePage() {
+	var modelName = $("#modelNames").find(":selected").text();
+	if(validateEmptyString(modelName, 'Model Name') &&
+			validateEmptyString($("#versionNumber").val(), 'Version Number')) {
+		return true;
+	}
+	
+	return false;
+}
+
 // Convert the data on the page to JSON
 function dataToJSON() {
 	return JSON.stringify({
@@ -24,6 +34,9 @@ function onLoadCreatePage() {
 	populateModelNames("modelNames");
 	$("#addBtn").click(
 			function() {
+				if(!validatePage()) {
+					return false;
+				}
 				showNotification("Saving information. Please wait ... ");
 
 				request = $.ajax({
