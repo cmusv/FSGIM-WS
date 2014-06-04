@@ -1,3 +1,12 @@
+function validatePage() {
+	if(validateEmptyString($("#modelName").val(), 'Model Name') && 
+			validateEmptyString($("#queriesURI").val(), 'Queries URI') ) {
+		return true;
+	}
+	
+	return false;
+}
+
 // Convert the data on the page to JSON
 function dataToJSON() {
 	return JSON.stringify({
@@ -18,6 +27,9 @@ function clearAllFields() {
 function onLoadCreatePage() {
 	$("#addBtn").click(
 			function() {
+				if(!validatePage()) {
+					return false;
+				}
 				showNotification("Saving information. Please wait ... ");
 
 				request = $.ajax({
