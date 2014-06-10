@@ -7,6 +7,7 @@ public class VersionPO extends BasePO {
 	private String versionNumber;
 	private String description;
 	private String modelName;
+	private String versionURI;
 
 	public String getModelName() {
 		return modelName;
@@ -32,12 +33,20 @@ public class VersionPO extends BasePO {
 		this.description = description;
 	}
 
+	public String getVersionURI() {
+		return versionURI;
+	}
+
+	public void setVersionURI(String versionURI) {
+		this.versionURI = versionURI;
+	}
+
 	@Override
 	public String toString() {
-		return "VersionPO [versionNumber=" + versionNumber + ", description="
-				+ description + ", modelName=" + modelName + ", getId()="
-				+ getId() + ", getModifiedBy()=" + getModifiedBy()
-				+ ", getModifiedTime()=" + getModifiedTime()
+		return "Version [versionNumber=" + versionNumber + ", description="
+				+ description + ", modelName=" + modelName + ", versionURI="
+				+ versionURI + ", getId()=" + getId() + ", getModifiedBy()="
+				+ getModifiedBy() + ", getModifiedTime()=" + getModifiedTime()
 				+ ", getCreatedBy()=" + getCreatedBy() + ", getCreatedTime()="
 				+ getCreatedTime() + "]";
 	}
