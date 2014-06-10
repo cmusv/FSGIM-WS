@@ -1,7 +1,8 @@
 function validatePage() {
 	var modelName = $("#modelNames").find(":selected").text();
 	if(validateEmptyString(modelName, 'Model Name') &&
-			validateEmptyString($("#versionNumber").val(), 'Version Number')) {
+			validateEmptyString($("#versionNumber").val(), 'Version Number') &&
+			validateEmptyString($("#versionURI").val(), 'Version URI')) {
 		return true;
 	}
 	
@@ -13,6 +14,7 @@ function dataToJSON() {
 	return JSON.stringify({
 		modelName : $("#modelNames").find(":selected").text(),
 		versionNumber : $("#versionNumber").val(),
+		versionURI : $("#versionURI").val(),
 		description : $("#description").val()
 	});
 }
@@ -22,6 +24,7 @@ function dataToJSON() {
 function clearAllFields() {
 	$('select option:first-child').attr("selected", "selected");
 	$("#versionNumber").val("");
+	$("#versionURI").val("");
 	$("#description").val("");
 }
 
@@ -86,7 +89,8 @@ function onLoadShowPage() {
 										+ "<b>Following is a list of all available Versions</b></td></tr>");
 				var headerRow = "<tr>" 
 					+ "<td><b>Model Name</b></td>"
-					+ "<td><b>Version Number</b></td>" 
+					+ "<td><b>Version Number</b></td>"
+					+ "<td><b>Version URI</b></td>"
 					+ "<td><b>Description</b></td>"
 					+ "</tr>";
 				$(headerRow).appendTo("#versionsListingTbl > tbody");
@@ -99,6 +103,7 @@ function onLoadShowPage() {
 									var queryRow = "<tr id ='" + version.id + "'>"
 											+ "<td>" + version.modelName + "</td>"
 											+ "<td>" + version.versionNumber + "</td>"
+											+ "<td>" + version.versionURI + "</td>"
 											+ "<td>" + version.description + "</td>"
 											+ "<td>" + deleteButton + "</td>"
 											+ "</tr>";
