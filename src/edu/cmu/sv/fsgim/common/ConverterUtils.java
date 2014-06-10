@@ -55,6 +55,7 @@ public class ConverterUtils {
 		dto.setVersionNumber(po.getVersionNumber());
 		dto.setDescription(po.getDescription());
 		dto.setModelName(po.getModelName());
+		dto.setVersionURI(po.getVersionURI());
 
 		updateWhoColumns(po, dto);
 
@@ -70,6 +71,7 @@ public class ConverterUtils {
 		po.setVersionNumber(dto.getVersionNumber());
 		po.setDescription(dto.getDescription());
 		po.setModelName(dto.getModelName());
+		po.setVersionURI(dto.getVersionURI());
 
 		updateWhoColumns(dto, po);
 

@@ -48,6 +48,7 @@ public class VersionManager {
 
 			po = ConverterUtils.convert(tempDTO);
 			po.setDescription(version.getDescription());
+			po.setVersionURI(version.getVersionURI());
 		} else {
 			po = ConverterUtils.convert(version);
 		}
