@@ -30,10 +30,10 @@ public class QueryDAOImpl extends BaseDAOImpl<QueryPO> implements
 				+ "and queryClassification = :queryClassification "
 				+ "and queryName = :queryName ";
 		Query q = getEntityManager().createQuery(findByNameQuery);
-		q.setParameter("modelName", po.getModelName());
-		q.setParameter("modelVersion", po.getModelVersion());
-		q.setParameter("queryClassification", po.getQueryClassification());
-		q.setParameter("queryName", po.getQueryName());
+		q.setParameter("modelName", po.getModelName().trim());
+		q.setParameter("modelVersion", po.getModelVersion().trim());
+		q.setParameter("queryClassification", po.getQueryClassification().trim());
+		q.setParameter("queryName", po.getQueryName().trim());
 
 		return executeQuery(q);
 	}

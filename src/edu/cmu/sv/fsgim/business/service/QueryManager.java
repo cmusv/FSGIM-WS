@@ -49,6 +49,10 @@ public class QueryManager {
 		LOG.trace(query);
 
 		QueryPO po = ConverterUtils.convert(query);
+		
+		// Remove extra spaces
+		po.setQueryName(po.getQueryName().trim());
+		po.setQueryClassification(po.getQueryClassification().trim());
 
 		List<QueryPO> existingPOs = dao.find(po);
 		LOG.trace("Existing POs = " + existingPOs);
