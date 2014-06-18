@@ -96,7 +96,7 @@ function onLoadShowPage() {
         console.log("Response obtained:: " + response);
         
         // Populate the results table on the page.
-        $("#queriesListingTbl").append("<tr><td colspan=5 align='center'>" +
+        $("#queriesListingTbl").append("<tr><td colspan='7' align='center'>" +
         "<b>Following is a list of all available Queries</b></td></tr>");
         var headerRow = "<tr>" + 
             "<td><b>Model Name</b></td>" +
@@ -105,7 +105,7 @@ function onLoadShowPage() {
 			"<td><b>Query Name</b></td>" +
 			"<td><b>Extra Prefix(s)</b></td>" +
 			"<td><b>Query String</b></td>" +
-			"<td>&nbsp;</td>" +
+			"<td><b>Action</b></td>" +
 			"</tr>";
         $(headerRow).appendTo("#queriesListingTbl > tbody");
         $.each(response, function(i, query) {

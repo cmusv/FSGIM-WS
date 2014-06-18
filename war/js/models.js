@@ -75,12 +75,13 @@ function onLoadShowPage() {
 				// Populate the results table on the page.
 				$("#modelsListingTbl")
 						.append(
-								"<tr><td align='center'>"
+								"<tr><td align='center' colspan='4'>"
 										+ "<b>Following is a list of all available Versions</b></td></tr>");
 				var headerRow = "<tr>" 
 					+ "<td><b>Model Name</b></td>"
 					+ "<td><b>Queries URI</b></td>"
 					+ "<td><b>Description</b></td>"
+					+ "<td><b>Action</b></td>"
 					+ "</tr>";
 				$(headerRow).appendTo("#modelsListingTbl > tbody");
 				$

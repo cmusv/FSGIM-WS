@@ -84,9 +84,11 @@ function onLoadShowPage() {
 				// Populate the results table on the page.
 				$("#usersListingTbl")
 						.append(
-								"<tr><td align='center'>"
+								"<tr><td align='center' colspan='2'>"
 										+ "<b>Following is a list of all available Users</b></td></tr>");
-				var headerRow = "<tr>" + "<td><b>User Name</b></td>" + "</tr>";
+				var headerRow = "<tr>" + "<td><b>User Name</b></td>" 
+								+ "<td><b>Action</b></td>" 
+								+  "</tr>";
 				$(headerRow).appendTo("#usersListingTbl > tbody");
 				$
 						.each(
