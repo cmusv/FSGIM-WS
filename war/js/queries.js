@@ -26,7 +26,7 @@ function dataToJSON() {
 // Function to clear all the fields on the page,
 // to get the page ready for the next query.
 function clearAllFields() {
-	showNotification("Query saved successfully");
+	showTimedNotification("Query saved successfully");
     $("#queryClassification").val("");
     $("#queryName").val("");
     $("#queryPrefix").val("");
@@ -144,7 +144,7 @@ function performDelete(queryId) {
     
     // callback handler that will be called on success
     req.done(function (response, textStatus, jqXHR){
-        showNotification("Query deleted successfully.");
+    	showTimedNotification("Query deleted successfully.");
         var qId = localStorage.getItem('delQueryId');
         $('table#queriesListingTbl tr#' + qId).remove();
         console.log('Row with id ' + qId + ' removed from table');

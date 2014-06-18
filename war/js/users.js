@@ -28,7 +28,7 @@ function dataToJSON() {
 // Function to clear all the fields on the page,
 // to get the page ready for the next query.
 function clearAllFields() {
-	showNotification("User saved successfully");
+	showTimedNotification("User saved successfully");
 	$("#userName").val("");
 	$("#password").val("");
 	$("#passwordRe").val("");
@@ -132,7 +132,7 @@ function performDelete(userId) {
 
 	// callback handler that will be called on success
 	req.done(function(response, textStatus, jqXHR) {
-		showNotification("User deleted successfully.");
+		showTimedNotification("User deleted successfully.");
 		var uId = localStorage.getItem('delUserId');
 		$('table#usersListingTbl tr#' + uId).remove();
 		console.log('Row with id ' + uId + ' removed from table');

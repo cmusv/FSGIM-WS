@@ -34,7 +34,7 @@ $(document).ready(
 // and shows a notification.
 function validateEmptyString(value, fieldName) {
 	if ("" == value.trim()) {
-		showNotification(fieldName + " is mandatory.");
+		showTimedNotification(fieldName + " is mandatory.");
 		return false;
 	}
 	

@@ -53,7 +53,7 @@ function onLoadCreatePage() {
 				// callback handler that will be called on success
 				request.done(function(response, textStatus, jqXHR) {
 					// log a message to the console
-					showNotification("Version saved successfully");
+					showTimedNotification("Version saved successfully");
 					clearAllFields();
 				});
 
@@ -132,7 +132,7 @@ function performDelete(versionId) {
 
 	// callback handler that will be called on success
 	req.done(function(response, textStatus, jqXHR) {
-		showNotification("Version deleted successfully.");
+		showTimedNotification("Version deleted successfully.");
 		var uId = localStorage.getItem('delVersionId');
 		$('table#versionsListingTbl tr#' + uId).remove();
 		console.log('Row with id ' + uId + ' removed from table');

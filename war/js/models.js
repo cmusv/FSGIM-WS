@@ -43,7 +43,7 @@ function onLoadCreatePage() {
 				// callback handler that will be called on success
 				request.done(function(response, textStatus, jqXHR) {
 					// log a message to the console
-					showNotification("Model saved successfully");
+					showTimedNotification("Model saved successfully");
 					clearAllFields();
 				});
 
@@ -120,7 +120,7 @@ function performDelete(modelId) {
 
 	// callback handler that will be called on success
 	req.done(function(response, textStatus, jqXHR) {
-		showNotification("Model deleted successfully.");
+		showTimedNotification("Model deleted successfully.");
 		var uId = localStorage.getItem('delModelId');
 		$('table#modelsListingTbl tr#' + uId).remove();
 		console.log('Row with id ' + uId + ' removed from table');
